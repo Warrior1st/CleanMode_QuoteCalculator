@@ -2,23 +2,169 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h2 class="display-4">Get A Quote!</h2>
-    <p>To get you a quote, we need a few details: </p>
+<form action="/" method="post" class="text-center">
+    <div class="form-group">
+        <h2 class="display-4">Get A Quote!</h2>
+        <p>To get you a quote, we need a few details: </p>
 
 
-</div>
-<div class="text-center mt-5">
-    <h3>Where do you want your cleaning done?</h3>
-    <div class="mt-4">
-        <input type="radio" id="house" name="location" value="house">
-        <label for="house">House</label><br>
-        <input type="radio" id="office" name="location" value="office">
-        <label for="office">Office</label><br>
-        <input type="radio" id="warehouse" name="location" value="warehouse">
-        <label for="warehouse">Warehouse</label><br />
-        <input type="radio" id="commercial" name="location" value="commercial">
-        <label for="commercial">Commercial Establishment</label>
     </div>
-    <button class="btn btn-primary">Next <span class="fas fa-chevron-right"></span></button>
-</div>
+    <div class="form-group mt-5" id="location">
+        <h3>Where do you want your cleaning done?</h3>
+        <div class="mt-4">
+            <input type="radio" id="house" name="location" value="house">
+            <label for="house">House</label><br>
+            <input type="radio" id="office" name="location" value="office">
+            <label for="office">Office</label><br>
+            <input type="radio" id="warehouse" name="location" value="warehouse">
+            <label for="warehouse">Warehouse</label><br />
+            <input type="radio" id="commercial" name="location" value="commercial">
+            <label for="commercial">Commercial Establishment</label>
+
+        </div>
+        <button class="btn btn-primary mt-2" id="first">Next <span class="fas fa-chevron-right"></span></button>
+    </div>
+    <div class="form-group mt-5" id="units">
+        <h3>How many units need to be cleaned?</h3>
+        <select class="form-control mt-3" name="numberUnits" id="nbrUnits" data-width="10%">
+            <option value="one">1</option>
+            <option value="two">2</option>
+            <option value="three">3</option>
+            <option value="four">4</option>
+            <option value="five">5</option>
+            <option value="six">6</option>
+            <option value="seven">7</option>
+            <option value="eight">8</option>
+            <option value="nine">9</option>
+            <option value="ten">10</option>
+        </select><br />
+
+        <button class="btn btn-primary mt-2">Next <span class="fas fa-chevron-right"></span></button>
+    </div>
+    <div class="form-group mt-5" id="unitsTable">
+        <h3>Units</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Housing Units Or Work Units</th>
+                    <th>Area/Sqft</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <select class="form-control" name="numberUnits" id="nbrUnits" data-width="10%">
+                            <option value="basement">Basement</option>
+                            <option value="bathroom">Bathroom</option>
+                            <option value="bedroom">Bedroom</option>
+                            <option value="diningroom">Dining Room</option>
+                            <option value="entrance">Entrance</option>
+                            <option value="garage">Garage</option>
+                            <option value="kitchen">Kitchen</option>
+                            <option value="livingroom">Living Room</option>
+                            <option value="stairs">Stairs</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input class="form-control border-0" id="area" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <select class="form-control" name="numberUnits" id="nbrUnits" data-width="10%">
+                            <option value="basement">Basement</option>
+                            <option value="bathroom">Bathroom</option>
+                            <option value="bedroom">Bedroom</option>
+                            <option value="diningroom">Dining Room</option>
+                            <option value="entrance">Entrance</option>
+                            <option value="garage">Garage</option>
+                            <option value="kitchen">Kitchen</option>
+                            <option value="livingroom">Living Room</option>
+                            <option value="stairs">Stairs</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input class="form-control border-0" id="area" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <select class="form-control" name="numberUnits" id="nbrUnits" data-width="10%">
+                            <option value="basement">Basement</option>
+                            <option value="bathroom">Bathroom</option>
+                            <option value="bedroom">Bedroom</option>
+                            <option value="diningroom">Dining Room</option>
+                            <option value="entrance">Entrance</option>
+                            <option value="garage">Garage</option>
+                            <option value="kitchen">Kitchen</option>
+                            <option value="livingroom">Living Room</option>
+                            <option value="stairs">Stairs</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input class="form-control border-0" id="area" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <select class="form-control" name="numberUnits" id="nbrUnits" data-width="10%">
+                            <option value="basement">Basement</option>
+                            <option value="bathroom">Bathroom</option>
+                            <option value="bedroom">Bedroom</option>
+                            <option value="diningroom">Dining Room</option>
+                            <option value="entrance">Entrance</option>
+                            <option value="garage">Garage</option>
+                            <option value="kitchen">Kitchen</option>
+                            <option value="livingroom">Living Room</option>
+                            <option value="stairs">Stairs</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input class="form-control border-0" id="area" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <select class="form-control" name="numberUnits" id="nbrUnits" data-width="10%">
+                            <option value="basement">Basement</option>
+                            <option value="bathroom">Bathroom</option>
+                            <option value="bedroom">Bedroom</option>
+                            <option value="diningroom">Dining Room</option>
+                            <option value="entrance">Entrance</option>
+                            <option value="garage">Garage</option>
+                            <option value="kitchen">Kitchen</option>
+                            <option value="livingroom">Living Room</option>
+                            <option value="stairs">Stairs</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input class="form-control border-0" id="area" />
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+
+
+    </div>
+    <input tye="submit" class="btn btn-primary" value="Submit"/>
+</form>
+@*<div class="text-center mt-5" id="units">
+    <h3>How many windows do you have in your house?</h3>
+    <select class="form-control mt-3" name="numberUnits" id="nbrUnits" data-width="10%">
+        <option value="zero">0</option>
+        <option value="one">1</option>
+        <option value="two">2</option>
+        <option value="three">3</option>
+        <option value="four">4</option>
+        <option value="five">5</option>
+        <option value="six">6</option>
+        <option value="seven">7</option>
+        <option value="eight">8</option>
+        <option value="nine">9</option>
+        <option value="ten">10</option>
+    </select><br />
+
+    <button class="btn btn-primary mt-2">Next <span class="fas fa-chevron-right"></span></button>
+</div>*@
+
