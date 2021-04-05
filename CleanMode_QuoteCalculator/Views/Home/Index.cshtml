@@ -2,7 +2,7 @@
     ViewData["Title"] = "Home Page";
 }
 
-<form action="/" method="post" class="text-center">
+<form asp-controller="Quotes" asp-action="Index" method="post" class="text-center" >
     <div class="form-group">
         <h2 class="display-4">Get A Quote!</h2>
         <p>To get you a quote, we need a few details: </p>
@@ -53,7 +53,25 @@
             <tbody>
                 <tr>
                     <td>
-                        <select class="form-control" name="numberUnits" id="nbrUnits" data-width="10%">
+                        <select class="form-control" name="UnitType" id="Units" data-width="10%">
+                            <option value="basement">Basement</option>
+                            <option value="bathroom">Bathroom</option>
+                            <option value="bedroom">Bedroom</option>
+                            <option value="diningroom">Dining Room</option>
+                            <option value="entrance">Entrance</option>
+                            <option value="garage">Garage</option>
+                            <option value="kitchen">Kitchen</option>
+                            <option value="livingroom">Living Room</option>
+                            <option value="stairs">Stairs</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input class="form-control border-0" id="area" name="area1" value="" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <select class="form-control" name="UnitType" id="Units" data-width="10%">
                             <option value="basement">Basement</option>
                             <option value="bathroom">Bathroom</option>
                             <option value="bedroom">Bedroom</option>
@@ -71,7 +89,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <select class="form-control" name="numberUnits" id="nbrUnits" data-width="10%">
+                        <select class="form-control" name="UnitType" id="Units" data-width="10%">
                             <option value="basement">Basement</option>
                             <option value="bathroom">Bathroom</option>
                             <option value="bedroom">Bedroom</option>
@@ -89,7 +107,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <select class="form-control" name="numberUnits" id="nbrUnits" data-width="10%">
+                        <select class="form-control" name="UnitType" id="nbrUnits" data-width="10%">
                             <option value="basement">Basement</option>
                             <option value="bathroom">Bathroom</option>
                             <option value="bedroom">Bedroom</option>
@@ -107,25 +125,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <select class="form-control" name="numberUnits" id="nbrUnits" data-width="10%">
-                            <option value="basement">Basement</option>
-                            <option value="bathroom">Bathroom</option>
-                            <option value="bedroom">Bedroom</option>
-                            <option value="diningroom">Dining Room</option>
-                            <option value="entrance">Entrance</option>
-                            <option value="garage">Garage</option>
-                            <option value="kitchen">Kitchen</option>
-                            <option value="livingroom">Living Room</option>
-                            <option value="stairs">Stairs</option>
-                        </select>
-                    </td>
-                    <td>
-                        <input class="form-control border-0" id="area" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <select class="form-control" name="numberUnits" id="nbrUnits" data-width="10%">
+                        <select class="form-control" name="UnitType" id="Units" data-width="10%">
                             <option value="basement">Basement</option>
                             <option value="bathroom">Bathroom</option>
                             <option value="bedroom">Bedroom</option>
@@ -147,7 +147,7 @@
 
 
     </div>
-    <input tye="submit" class="btn btn-primary" value="Submit"/>
+    <input type="submit" name="Submit" value="Calculate" />
 </form>
 @*<div class="text-center mt-5" id="units">
     <h3>How many windows do you have in your house?</h3>
