@@ -20,7 +20,7 @@ namespace CleanMode_QuoteCalculator.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Index(Quote quote, List<string> UnitType, string area1)
+        public async Task<IActionResult> Index(Quote quote, List<string> UnitType, List<string> area)
         {
 
             if (ModelState.IsValid)
@@ -31,26 +31,26 @@ namespace CleanMode_QuoteCalculator.Controllers
                 {
                     switch (unit)
                     {
-                        case "basement":
-                            var basement = _context.Basements.Where(a => a.RoomTypeId == 8).FirstOrDefault();
-                            var price = basement.PricePerSqft * int.Parse(area1);
-                            finalPrice += (float) price;
-                            break;
-                        case "bathroom":
-                            var bathroom = _context.Bathrooms.Where(a => a.RoomTypeId == 2).FirstOrDefault();
-                            var price2 = bathroom.PricePerSqft * int.Parse(area1);
-                            finalPrice += (float)price2;
-                            break;
-                        case "garage":
-                            var garage = _context.Garages.Where(a => a.RoomTypeId == 5).FirstOrDefault();
-                            var price3 = garage.PricePerSqft * int.Parse(area1);
-                            finalPrice += (float)price3;
-                            break;
-                        case "livingroom":
-                            var livingroom = _context.Livingrooms.Where(a => a.RoomTypeId == 4).FirstOrDefault();
-                            var price4 = livingroom.PricePerSqft * int.Parse(area1);
-                            finalPrice += (float)price4;
-                            break;
+                        //case "basement":
+                        //    var basement = _context.Basements.Where(a => a.RoomTypeId == 8).FirstOrDefault();
+                        //    var price = basement.PricePerSqft * int.Parse(area);
+                        //    finalPrice += (float) price;
+                        //    break;
+                        //case "bathroom":
+                        //    var bathroom = _context.Bathrooms.Where(a => a.RoomTypeId == 2).FirstOrDefault();
+                        //    var price2 = bathroom.PricePerSqft * int.Parse(area);
+                        //    finalPrice += (float)price2;
+                        //    break;
+                        //case "garage":
+                        //    var garage = _context.Garages.Where(a => a.RoomTypeId == 5).FirstOrDefault();
+                        //    var price3 = garage.PricePerSqft * int.Parse(area1);
+                        //    finalPrice += (float)price3;
+                        //    break;
+                        //case "livingroom":
+                        //    var livingroom = _context.Livingrooms.Where(a => a.RoomTypeId == 4).FirstOrDefault();
+                        //    var price4 = livingroom.PricePerSqft * int.Parse(area1);
+                        //    finalPrice += (float)price4;
+                        //    break;
                         //case "diningroom":
                         //    var diningroom = _context.Diningrooms.Where(a => a.RoomTypeId == 4).FirstOrDefault();
                         //    var price4 = diningroom.PricePerSqft * int.Parse(area1);
@@ -78,8 +78,8 @@ namespace CleanMode_QuoteCalculator.Controllers
 
                
             }
-            ViewData["CustomerId"] = new SelectList(_context.Customers, "CustomerId", "CustomerId", quote.CustomerId);
-            return View(quote);
+            //ViewData["CustomerId"] = new SelectList(_context.Customers, "CustomerId", "CustomerId", quote.CustomerId);
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: Quotes/Details/5
