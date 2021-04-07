@@ -33,10 +33,18 @@ function OnNumberSelected() {
 function GenerateTableRows(rows) {
     //Create a table dynamically.
     var tbody = document.getElementById("tableBody");
+    if (tbody.children.length > 0) {
+        var tbodyLength = tbody.children.length;
+        for (i = 0; i < tbodyLength; i++) {
+            var child = document.getElementById("tr" + i);
+            tbody.removeChild(child);
+        }
+    }
 
     for (i = 0; i < rows; i++) {
         //Creating rows
         var tr = document.createElement("tr");
+        tr.id = "tr" + i;
 
 
         //Creating table datas
@@ -47,11 +55,15 @@ function GenerateTableRows(rows) {
         var select = document.createElement("select");
         select.class = "form-control";
         select.name = "unitType";
-        select.id = "Units";
+        select.id = "Units" + i;
         select.setAttribute("data-width", "10%");
         /*select.setAttribute("onchange", OptionSelected());*/
 
         //Creating the dropdown options
+        var optionDefault = document.createElement("option");
+        optionDefault.value = "DefaultMessage";
+        optionDefault.text = "-{- Select Type of Room -}-";
+
         var option = document.createElement("option");
         option.value = "basement";
         option.text = "Basement";
@@ -90,14 +102,16 @@ function GenerateTableRows(rows) {
         option8.text = "Stairs";
 
         //Appending the options to the dropdown
-        select.appendChild(option).appendChild(option1)
-        .appendChild(option2)
-        .appendChild(option3)
-        .appendChild(option4)
-        .appendChild(option5)
-        .appendChild(option6)
-        .appendChild(option7)
-        .appendChild(option8);
+        select.appendChild(optionDefault);
+        select.appendChild(option);
+        select.appendChild(option1);
+        select.appendChild(option2);
+        select.appendChild(option3);
+        select.appendChild(option4);
+        select.appendChild(option5);
+        select.appendChild(option6);
+        select.appendChild(option7);
+        select.appendChild(option8);
 
         //Appending the select list to the first colum of the table
         td1.appendChild(select);
@@ -108,34 +122,26 @@ function GenerateTableRows(rows) {
         var div = document.createElement("div");
         div.id = "selection";
 
+
+        var textBoxt = document.createElement("input");
+
+        //Assign different attributes to the element.
+        textBoxt.setAttribute("type", "text");
+        textBoxt.setAttribute("value", "");
+        textBoxt.setAttribute("name", "area");
+        textBoxt.setAttribute("class", "form-control");
+        textBoxt.setAttribute("placeholder", "Enter the room's area");
+        textBoxt.setAttribute("id", "textbox" + i);
+
         //Appending the container to the second column
-        td2.appendChild(div);
+        td2.appendChild(textBoxt);
 
         //Apppending columns to rows
         tr.appendChild(td1);
         tr.appendChild(td2);
 
-
         tbody.appendChild(tr);
     }
-
-
-    var textBoxt = document.createElement("input");
-
-    //Assign different attributes to the element.
-    element.setAttribute("type", "text");
-    element.setAttribute("value", "");
-    element.setAttribute("name", "area");
-    element.setAttribute("class", "form-control");
-    element.setAttribute("placeholder", "Enter the room's area");
-    element.setAttribute("id", "textbox" + value);
-
-
-    // 'foobar' is the div id, where new fields are to be added
-    var foo = document.getElementById("selection");
-
-    //Append the element in page (in span).
-    foo.appendChild(element);
     counter++;
 }
 
