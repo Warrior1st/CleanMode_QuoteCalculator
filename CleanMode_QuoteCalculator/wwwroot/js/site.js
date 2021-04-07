@@ -142,7 +142,6 @@ function GenerateTableRows(rows) {
 
         tbody.appendChild(tr);
     }
-    counter++;
 }
 
 function OptionSelected() {
