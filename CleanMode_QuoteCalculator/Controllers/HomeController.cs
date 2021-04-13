@@ -1,4 +1,5 @@
 ﻿using CleanMode_QuoteCalculator.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -16,10 +17,13 @@ namespace CleanMode_QuoteCalculator.Controllers
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
+            
         }
 
         public IActionResult Index()
         {
+            
+
             return View();
         }
 
