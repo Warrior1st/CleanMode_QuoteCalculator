@@ -2,7 +2,7 @@
     ViewData["Title"] = "Home Page";
 }
 
-<form asp-controller="Quotes" asp-action="Index" method="post" class="text-center">
+<form asp-controller="Quotes" asp-action="Index" method="post" class="text-center" >
     <div class="form-group">
         <h2 class="display-4">Get A Quote!</h2>
         <p>To get you a quote, we need a few details: </p>
@@ -22,7 +22,7 @@
             <label for="commercial">Commercial Establishment</label>
 
         </div>
-        <button class="btn btn-primary mt-2" id="first" onclick="NextPage(1)">Next <span class="fas fa-chevron-right"></span></button>
+        <button type="button" class="btn btn-primary mt-2" id="first" onclick="NextPage(1)">Next <span class="fas fa-chevron-right"></span></button>
     </div>
     <div class="form-group mt-5" id="units">
         <h3>How many units need to be cleaned?</h3>
@@ -39,7 +39,7 @@
             <option value="10">10</option>
         </select><br />
 
-        <button class="btn btn-primary mt-2">Next <span class="fas fa-chevron-right"></span></button>
+        <button class="btn btn-primary mt-2" type="button">Next <span class="fas fa-chevron-right"></span></button>
     </div>
     <div class="form-group mt-5" id="unitsTable">
         <h3>Units</h3>

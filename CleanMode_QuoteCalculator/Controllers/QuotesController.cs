@@ -6,16 +6,21 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CleanMode_QuoteCalculator.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace CleanMode_QuoteCalculator.Controllers
 {
     public class QuotesController : Controller
     {
         private readonly CleanModeContext _context;
+        private readonly RoleManager<IdentityRole> roleManager;
+        private readonly UserManager<IdentityUser> userManager;
 
-        public QuotesController(CleanModeContext context)
+        public QuotesController(CleanModeContext context, RoleManager<IdentityRole> roleManager, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            this.roleManager = roleManager;
+            this.userManager = userManager;
         }
 
         [HttpPost]
@@ -25,58 +30,101 @@ namespace CleanMode_QuoteCalculator.Controllers
 
             if (ModelState.IsValid)
             {
+                //Creating admin roles
+                //CODE IS TO BE DELETED FOR SECURITY RESONS AFTER SETTING UP THE DATABASE
+                //if (roleManager.FindByNameAsync("ADMINISTRATOR") == null)
+                //{
+                IdentityRole role = new IdentityRole { Name = "CUSTOMER" };
+                await roleManager.CreateAsync(role);
+                //}
+
+                var user = await userManager.FindByEmailAsync("sebujo@gmail.com");
+
+                await userManager.AddToRoleAsync(user, "ADMINISTRATOR");
+
+
+
+
+
                 float finalPrice = 0f;
-                
-                foreach (string unit in UnitType)
+
+                for (int i = 0; i < UnitType.Count; i++)
                 {
-                    switch (unit)
+                    switch (UnitType[i])
                     {
-                        //case "basement":
-                        //    var basement = _context.Basements.Where(a => a.RoomTypeId == 8).FirstOrDefault();
-                        //    var price = basement.PricePerSqft * int.Parse(area);
-                        //    finalPrice += (float) price;
-                        //    break;
-                        //case "bathroom":
-                        //    var bathroom = _context.Bathrooms.Where(a => a.RoomTypeId == 2).FirstOrDefault();
-                        //    var price2 = bathroom.PricePerSqft * int.Parse(area);
-                        //    finalPrice += (float)price2;
-                        //    break;
-                        //case "garage":
-                        //    var garage = _context.Garages.Where(a => a.RoomTypeId == 5).FirstOrDefault();
-                        //    var price3 = garage.PricePerSqft * int.Parse(area1);
-                        //    finalPrice += (float)price3;
-                        //    break;
-                        //case "livingroom":
-                        //    var livingroom = _context.Livingrooms.Where(a => a.RoomTypeId == 4).FirstOrDefault();
-                        //    var price4 = livingroom.PricePerSqft * int.Parse(area1);
-                        //    finalPrice += (float)price4;
-                        //    break;
-                        //case "diningroom":
-                        //    var diningroom = _context.Diningrooms.Where(a => a.RoomTypeId == 4).FirstOrDefault();
-                        //    var price4 = diningroom.PricePerSqft * int.Parse(area1);
-                        //    finalPrice += (float)price4;
-                        //    break;
-                        //case "stairs":
-                        //    var livingroom = _context.Livingrooms.Where(a => a.RoomTypeId == 4).FirstOrDefault();
-                        //    var price4 = livingroom.PricePerSqft * int.Parse(area1);
-                        //    finalPrice += (float)price4;
-                        //    break;
-                        //case "kitchen":
-                        //    var livingroom = _context.Livingrooms.Where(a => a.RoomTypeId == 4).FirstOrDefault();
-                        //    var price4 = livingroom.PricePerSqft * int.Parse(area1);
-                        //    finalPrice += (float)price4;
-                        //    break;
-                        //case "bedroom":
-                        //    var livingroom = _context.Livingrooms.Where(a => a.RoomTypeId == 4).FirstOrDefault();
-                        //    var price4 = livingroom.PricePerSqft * int.Parse(area1);
-                        //    finalPrice += (float)price4;
-                        //    break;
+                        case "basement":
+                            var basement = _context.Basements.Where(a => a.RoomTypeId == 8).FirstOrDefault();
+                            var price = basement.PricePerSqft * int.Parse(area[i]);
+                            finalPrice += (float)price;
+                            break;
+                        case "bathroom":
+                            var bathroom = _context.Bathrooms.Where(a => a.RoomTypeId == 2).FirstOrDefault();
+                            var price2 = bathroom.PricePerSqft * int.Parse(area[i]);
+                            finalPrice += (float)price2;
+                            break;
+                        case "garage":
+                            var garage = _context.Garages.Where(a => a.RoomTypeId == 5).FirstOrDefault();
+                            var price3 = garage.PricePerSqft * int.Parse(area[i]);
+                            finalPrice += (float)price3;
+                            break;
+                        case "livingroom":
+                            var livingroom = _context.Livingrooms.Where(a => a.RoomTypeId == 4).FirstOrDefault();
+                            var price4 = livingroom.PricePerSqft * int.Parse(area[i]);
+                            finalPrice += (float)price4;
+                            break;
+                        case "diningroom":
+                            var diningroom = _context.Diningrooms.Where(a => a.RoomTypeId == 3).FirstOrDefault();
+                            var price5 = diningroom.PricePerSqft * int.Parse(area[i]);
+                            finalPrice += (float)price5;
+                            break;
+                        case "stairs":
+                            var stairs = _context.Stairs.Where(a => a.RoomTypeId == 9).FirstOrDefault();
+                            var price6 = stairs.PricePerSqft * int.Parse(area[i]);
+                            finalPrice += (float)price6;
+                            break;
+                        case "kitchen":
+                            var kitchen = _context.Kitchens.Where(a => a.RoomTypeId == 7).FirstOrDefault();
+                            var price7 = kitchen.PricePerSqft * int.Parse(area[i]);
+                            finalPrice += (float)price7;
+                            break;
+                        case "bedroom":
+                            var bedroom = _context.Bedrooms.Where(a => a.RoomTypeId == 1).FirstOrDefault();
+                            var price8 = bedroom.PricePerSqft * int.Parse(area[i]);
+                            finalPrice += (float)price8;
+                            break;
+                        case "entrance":
+                            var entrance = _context.Entrances.Where(a => a.RoomTypeId == 6).FirstOrDefault();
+                            var price9 = entrance.PricePerSqft * int.Parse(area[i]);
+                            finalPrice += (float)price9;
+                            break;
                         default:
                             break;
                     }
                 }
+                Customer customer = new Customer
+                {
+                    FirstName = "ANONYMOUS",
+                    LastName = "ANONYMOUS",
+                    EmailAddress = "ANONYMOUS",
+                    PhysicalAddress = "ANONYMOUS"
+                };
 
-               
+                _context.Add(customer);
+                await _context.SaveChangesAsync();
+
+
+                Quote anonQuote = new Quote
+                {
+                    CustomerId = _context.Customers.Where(a => a.FirstName == "ANONYMOUS").OrderByDescending(b => b.CustomerId).FirstOrDefault().CustomerId,
+                    Quote1 = finalPrice
+                };
+                _context.Add(anonQuote);
+                await _context.SaveChangesAsync();
+
+                Response.Cookies.Append("finalPrice", finalPrice.ToString());
+                return RedirectToAction("Edit");
+
+
             }
             //ViewData["CustomerId"] = new SelectList(_context.Customers, "CustomerId", "CustomerId", quote.CustomerId);
             return RedirectToAction("Index", "Home");
@@ -126,20 +174,27 @@ namespace CleanMode_QuoteCalculator.Controllers
         }
 
         // GET: Quotes/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit()
         {
-            if (id == null)
+            string finalPrice = "";
+            if (Request.Cookies["finalPrice"] != null)
             {
-                return NotFound();
+                finalPrice = Request.Cookies["finalPrice"];
             }
+            //if (id == null)
+            //{
+            //    return NotFound();
+            //}
 
-            var quote = await _context.Quotes.FindAsync(id);
-            if (quote == null)
-            {
-                return NotFound();
-            }
-            ViewData["CustomerId"] = new SelectList(_context.Customers, "CustomerId", "CustomerId", quote.CustomerId);
-            return View(quote);
+            //var quote = await _context.Quotes.FindAsync(id);
+            //if (quote == null)
+            //{
+            //    return NotFound();
+            //}
+            //ViewData["CustomerId"] = new SelectList(_context.Customers, "CustomerId", "CustomerId", quote.CustomerId);
+            //return View(quote);
+            ViewData["finalPrice"] = finalPrice;
+            return View();
         }
 
         // POST: Quotes/Edit/5

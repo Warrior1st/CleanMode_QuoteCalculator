@@ -39,7 +39,7 @@ function GenerateTableRows(rows) {
             var child = document.getElementById("tr" + i);
             tbody.removeChild(child);
         }
-    }
+    }                                      
 
     for (i = 0; i < rows; i++) {
         //Creating rows
@@ -54,7 +54,7 @@ function GenerateTableRows(rows) {
         //Creating the select list(dropdown)
         var select = document.createElement("select");
         select.class = "form-control";
-        select.name = "unitType";
+        select.name = "UnitType";
         select.id = "Units" + i;
         select.setAttribute("data-width", "10%");
         /*select.setAttribute("onchange", OptionSelected());*/
@@ -164,7 +164,7 @@ function GenerateBox(value) {
     element.setAttribute("name", "area");
     element.setAttribute("class", "form-control");
     element.setAttribute("placeholder", "Enter the room's area");
-    element.setAttribute("id", "textbox" + value);
+    element.setAttribute("id", "textbox" + i);
 
 
     // 'foobar' is the div id, where new fields are to be added
