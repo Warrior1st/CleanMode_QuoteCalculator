@@ -1,0 +1,22 @@
+﻿@model List<string>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<div class="text-center" id="location">
+
+    @foreach (var item in Model)
+    {
+        <span>@item</span>
+    }
+
+
+    <button class="btn btn-primary mt-2" id="first">Next <span class="fas fa-chevron-right"></span></button>
+</div>
+

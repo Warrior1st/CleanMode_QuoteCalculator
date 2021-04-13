@@ -1,0 +1,24 @@
+﻿@model CleanMode_QuoteCalculator.Models.Quote
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+
+
+
+
+<div>
+    <a asp-controller="Home" asp-action="Index">Get a New Quote</a>
+</div>
+<div class="text-center" style="margin-top: 15%; ">
+    <p style="font-size:24px;">Your quote estimate is: @ViewData["finalPrice"]$</p>
+    <button class="btn btn-primary">Request Service</button>
+    <button class="btn btn-primary" style="margin-left: 2em;">Share Quote</button>
+</div>
+<div class="text-right" style="margin-top: 15%;">
+    Want to save your quote? <a asp-area="Identity" asp-page="/Account/Register">Sign Up Here!</a>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
