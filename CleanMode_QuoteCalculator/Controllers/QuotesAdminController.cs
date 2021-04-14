@@ -11,19 +11,40 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace CleanMode_QuoteCalculator.Controllers
 {
-    [Authorize(Roles = "ADMINISTRATOR")]
+    [Authorize(Roles = "ADMINISTRATOR,CUSTOMER")]
     public class QuotesAdminController : Controller
     {
         private readonly CleanModeContext _context;
+        private UserManager<IdentityUser> userManager;
 
-        public QuotesAdminController(CleanModeContext context)
+        public QuotesAdminController(CleanModeContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            this.userManager = userManager;
         }
 
         // GET: QuotesAdmin
         public async Task<IActionResult> Index()
         {
+            bool admin = false;
+            if (Request.Cookies["email"] != null)
+            {
+                
+                string email = Request.Cookies["email"];
+                if (email == "sebujo@gmail.com")
+                {
+                    admin = true;
+                    
+                }
+                var customer = _context.Customers.Where(a => a.EmailAddress == email).FirstOrDefault();
+                if (customer != null)
+                {
+                    ViewData["admin"] = admin;
+                    var cleanContext = _context.Quotes.Include(q => q.Customer).Where(a => a.CustomerId == customer.CustomerId);
+                    return View(await cleanContext.ToListAsync());
+                }
+            }
+            ViewData["admin"] = admin;
             var cleanModeContext = _context.Quotes.Include(q => q.Customer);
             return View(await cleanModeContext.ToListAsync());
         }

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Http;
 
 namespace CleanMode_QuoteCalculator.Areas.Identity.Pages.Account
 {
@@ -29,6 +30,8 @@ namespace CleanMode_QuoteCalculator.Areas.Identity.Pages.Account
         public async Task<IActionResult> OnPost(string returnUrl = null)
         {
             await _signInManager.SignOutAsync();
+            Response.Cookies.Append("email", "NaN",
+                new CookieOptions { Expires=DateTime.Now.AddDays(-1)});
             _logger.LogInformation("User logged out.");
             if (returnUrl != null)
             {

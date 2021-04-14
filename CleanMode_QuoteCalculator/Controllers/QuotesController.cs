@@ -32,19 +32,17 @@ namespace CleanMode_QuoteCalculator.Controllers
             {
                 //Creating admin roles
                 //CODE IS TO BE DELETED FOR SECURITY RESONS AFTER SETTING UP THE DATABASE
-                //if (roleManager.FindByNameAsync("ADMINISTRATOR") == null)
-                //{
-                IdentityRole role = new IdentityRole { Name = "CUSTOMER" };
-                await roleManager.CreateAsync(role);
-                //}
+                
+                //IdentityRole role = new IdentityRole { Name = "CUSTOMER" };
+                //await roleManager.CreateAsync(role);
 
-                var user = await userManager.FindByEmailAsync("sebujo@gmail.com");
+                //var user = await userManager.FindByEmailAsync("sebujo@gmail.com");
 
-                await userManager.AddToRoleAsync(user, "ADMINISTRATOR");
+                //await userManager.AddToRoleAsync(user, "ADMINISTRATOR");
 
 
 
-
+                //Calculating the quote by looping through the form's unit types and retrieving each unit type prices from the databases
 
                 float finalPrice = 0f;
 
@@ -101,25 +99,47 @@ namespace CleanMode_QuoteCalculator.Controllers
                             break;
                     }
                 }
-                Customer customer = new Customer
+
+                //Checking if there is a user connected save quote associated with that particular user
+                if (Request.Cookies["email"] != null)
                 {
-                    FirstName = "ANONYMOUS",
-                    LastName = "ANONYMOUS",
-                    EmailAddress = "ANONYMOUS",
-                    PhysicalAddress = "ANONYMOUS"
-                };
+                    
 
-                _context.Add(customer);
-                await _context.SaveChangesAsync();
+                    var recurringCust = _context.Customers.Where(a => a.EmailAddress == Request.Cookies["email"]).FirstOrDefault();
 
+                        Quote existingQuote = new Quote
+                        {
+                            CustomerId = recurringCust.CustomerId,
+                            Quote1 = finalPrice
+                        };
 
-                Quote anonQuote = new Quote
+                        _context.Add(existingQuote);
+                        await _context.SaveChangesAsync();
+
+                }
+                else
                 {
-                    CustomerId = _context.Customers.Where(a => a.FirstName == "ANONYMOUS").OrderByDescending(b => b.CustomerId).FirstOrDefault().CustomerId,
-                    Quote1 = finalPrice
-                };
-                _context.Add(anonQuote);
-                await _context.SaveChangesAsync();
+                    Customer customer = new Customer
+                    {
+                        FirstName = "ANONYMOUS",
+                        LastName = "ANONYMOUS",
+                        EmailAddress = "ANONYMOUS",
+                        PhysicalAddress = "ANONYMOUS"
+                    };
+
+
+                    _context.Add(customer);
+                    await _context.SaveChangesAsync();
+
+
+                    Quote anonQuote = new Quote
+                    {
+                        CustomerId = _context.Customers.Where(a => a.FirstName == "ANONYMOUS").OrderByDescending(b => b.CustomerId).FirstOrDefault().CustomerId,
+                        Quote1 = finalPrice
+                    };
+                    _context.Add(anonQuote);
+                    await _context.SaveChangesAsync();
+                }
 
                 Response.Cookies.Append("finalPrice", finalPrice.ToString());
                 return RedirectToAction("Edit");

@@ -30,13 +30,18 @@
             <th>
                 @Html.DisplayNameFor(model => model.Customer.PhysicalAddress)
             </th>
-            <th>
+            @if ((bool) ViewData["admin"]) 
+            { 
+                <th>
 
-            </th>
+                </th>
+            }
+
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+        @foreach (var item in Model)
+        {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Quote1)
@@ -56,12 +61,15 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Customer.PhysicalAddress)
             </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.QuoteId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.QuoteId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.QuoteId">Delete</a>
-            </td>
-        </tr>
-}
+            @if ((bool)ViewData["admin"])
+            {
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.QuoteId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.QuoteId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.QuoteId">Delete</a>
+                </td>
+            }
+            </tr>
+        }
     </tbody>
 </table>

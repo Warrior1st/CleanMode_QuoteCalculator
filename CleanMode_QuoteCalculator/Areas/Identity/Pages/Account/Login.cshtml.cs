@@ -85,6 +85,7 @@ namespace CleanMode_QuoteCalculator.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
+                    Response.Cookies.Append("email", Input.Email);
                     return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)
