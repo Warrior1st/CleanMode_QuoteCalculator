@@ -11,6 +11,8 @@ namespace CleanMode_QuoteCalculator.Models
         public int? CustomerId { get; set; }
         public float? Quote1 { get; set; }
 
+        public string? Quote_Summary { get; set; }
+
         public virtual Customer Customer { get; set; }
     }
 }

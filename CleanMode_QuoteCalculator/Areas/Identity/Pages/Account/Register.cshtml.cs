@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using CleanMode_QuoteCalculator.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -19,6 +20,7 @@ namespace CleanMode_QuoteCalculator.Areas.Identity.Pages.Account
     [AllowAnonymous]
     public class RegisterModel : PageModel
     {
+        private readonly CleanModeContext _context;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
@@ -28,12 +30,14 @@ namespace CleanMode_QuoteCalculator.Areas.Identity.Pages.Account
             UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            CleanModeContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _context = context;
         }
 
         [BindProperty]
@@ -78,7 +82,18 @@ namespace CleanMode_QuoteCalculator.Areas.Identity.Pages.Account
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
+                    //Adding new customer to the default customer role
                     await _userManager.AddToRoleAsync(user, "CUSTOMER");
+
+                    //Creating a new customer in the customer table
+                    Customer customer = new Customer
+                    {
+                        FirstName = user.UserName,
+                        LastName = user.UserName,
+                        EmailAddress = user.Email
+                    };
+                    _context.Add(customer);
+                    await _context.SaveChangesAsync();
                     _logger.LogInformation("User created a new account with password.");
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);

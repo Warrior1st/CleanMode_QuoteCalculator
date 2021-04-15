@@ -2,7 +2,8 @@
     ViewData["Title"] = "Home Page";
 }
 
-<form asp-controller="Quotes" asp-action="Index" method="post" class="text-center" >
+<form asp-controller="Quotes" asp-action="Index" method="post" class="text-center">
+    <div asp-validation-summary="All"></div>
     <div class="form-group">
         <h2 class="display-4">Get A Quote!</h2>
         <p>To get you a quote, we need a few details: </p>
@@ -24,7 +25,7 @@
         </div>
         <button type="button" class="btn btn-primary mt-2" id="first" onclick="NextPage(1)">Next <span class="fas fa-chevron-right"></span></button>
     </div>
-    <div class="form-group mt-5" id="units">
+    <div class="form-group mt-5" id="units" hidden>
         <h3>How many units need to be cleaned?</h3>
         <select class="form-control mt-3" name="numberUnits" id="nbrUnits" data-width="10%" onchange="OnNumberSelected()">
             <option value="1">1</option>
@@ -39,9 +40,10 @@
             <option value="10">10</option>
         </select><br />
 
-        <button class="btn btn-primary mt-2" type="button">Next <span class="fas fa-chevron-right"></span></button>
+        <button type="button" class="btn btn-primary mt-2" id="second" onclick="NextPage(2)">Next <span class="fas fa-chevron-right"></span></button>
     </div>
-    <div class="form-group mt-5" id="unitsTable">
+    <div><p class="text-danger">@TempData["message"]</p></div>
+    <div class="form-group mt-5" id="unitsTable" hidden>
         <h3>Units</h3>
         <table class="table" id="table">
             <thead>
@@ -51,14 +53,15 @@
                 </tr>
             </thead>
             <tbody id="tableBody">
-                
-
             </tbody>
         </table>
 
 
     </div>
-    <input type="submit" name="Submit" value="Calculate" />
+    <div class="form-group">
+        <input type="submit" name="Submit" value="Calculate" />
+    </div>
+
 </form>
 <div id="dropdown" hidden>
     <select class="form-control" name="UnitType" id="Units" data-width="10%" onchange="OptionSelected();">
@@ -74,21 +77,23 @@
     </select>
 </div>
 @*<div class="text-center mt-5" id="units">
-    <h3>How many windows do you have in your house?</h3>
-    <select class="form-control mt-3" name="numberUnits" id="nbrUnits" data-width="10%">
-        <option value="zero">0</option>
-        <option value="one">1</option>
-        <option value="two">2</option>
-        <option value="three">3</option>
-        <option value="four">4</option>
-        <option value="five">5</option>
-        <option value="six">6</option>
-        <option value="seven">7</option>
-        <option value="eight">8</option>
-        <option value="nine">9</option>
-        <option value="ten">10</option>
-    </select><br />
+        <h3>How many windows do you have in your house?</h3>
+        <select class="form-control mt-3" name="numberUnits" id="nbrUnits" data-width="10%">
+            <option value="zero">0</option>
+            <option value="one">1</option>
+            <option value="two">2</option>
+            <option value="three">3</option>
+            <option value="four">4</option>
+            <option value="five">5</option>
+            <option value="six">6</option>
+            <option value="seven">7</option>
+            <option value="eight">8</option>
+            <option value="nine">9</option>
+            <option value="ten">10</option>
+        </select><br />
 
-    <button class="btn btn-primary mt-2">Next <span class="fas fa-chevron-right"></span></button>
-</div>*@
+        <button class="btn btn-primary mt-2">Next <span class="fas fa-chevron-right"></span></button>
+    </div>*@
 
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}}

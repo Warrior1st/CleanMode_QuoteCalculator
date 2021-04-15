@@ -1,28 +1,38 @@
 ﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 // for details on configuring this project to bundle and minify static web assets.
 
-$(document).ready(function () {
-    $('#first').click(function () {
-        $('#location').fadeOut();
-        $('#units').slideUp;
+//$(document).ready(function () {
+//    $('#first').click(function () {
+//        $('#location').fadeOut();
+//        $('#units').slideUp;
 
-    });
+//    });
+//    $('#second').click(function () {
+//        $('#units').fadeOut();
+//        $('#unitsTable').slideUp;
+
+//    });
 
 
-});
-//function NextPage(page) {
-//    var firstCont = document.getElementById("location");
-//    var secondCont = document.getElementById("units");
-//    var thirdCont = document.getElementById("unitsTable");
+//});
+function NextPage(page) {
+    var firstCont = document.getElementById("location");
+    var secondCont = document.getElementById("units");
+    var thirdCont = document.getElementById("unitsTable");
 
-//    switch (page) {
-//        case 1:
-//            firstCont.style.display = "none";
-//            secondCont.style.display = "";
-//            break;
-//        default:
-//    }
-//}
+    switch (page) {
+        case 1:
+            firstCont.setAttribute("hidden", true);
+            secondCont.removeAttribute("hidden");
+            break;
+        case 2:
+            secondCont.setAttribute("hidden", true);
+            thirdCont.removeAttribute("hidden");
+            break;
+        default:
+            break;
+    }
+}
 // Write your JavaScript code.
 function OnNumberSelected() {
     var selectBox = document.getElementById("nbrUnits");
@@ -127,11 +137,20 @@ function GenerateTableRows(rows) {
 
         //Assign different attributes to the element.
         textBoxt.setAttribute("type", "text");
-        textBoxt.setAttribute("value", "");
+        textBoxt.setAttribute("value", "0");
         textBoxt.setAttribute("name", "area");
         textBoxt.setAttribute("class", "form-control");
         textBoxt.setAttribute("placeholder", "Enter the room's area");
         textBoxt.setAttribute("id", "textbox" + i);
+        //textBoxt.addEventListener('focusout', function () {
+        //    if (isNaN(textBoxt.value)) {
+        //        document.getElementById("ShowError").innerHTML = "The area is not a number";
+        //    }
+        //    else {
+        //        document.getElementById("ShowError").innerHTML = "";
+        //    }
+            
+        //});
 
         //Appending the container to the second column
         td2.appendChild(textBoxt);
@@ -143,6 +162,15 @@ function GenerateTableRows(rows) {
         tbody.appendChild(tr);
     }
 }
+
+//function ValidatingTextBox(textName) {
+    
+//    var value = document.getElementById(textName).value;
+
+//    if (isNaN(value)) {
+//        alert('Area must be a number');
+//    }
+//}
 
 function OptionSelected() {
     var selectBox = document.getElementById("Units");
