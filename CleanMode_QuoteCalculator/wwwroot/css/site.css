@@ -53,16 +53,29 @@ button.accept-policy {
 
 /* Sticky footer styles
 -------------------------------------------------- */
+
 html {
-  position: relative;
-  min-height: 100%;
-  background-color: transparent;
+    position: relative;
+    min-height: 100%;
 }
+
 
 body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
+  
 }
+.bg {
+    /* The image used */
+    background-image: url("../images/logo-v1.png");
+    /* Full height */
+    height: 100%;
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
 .footer {
   position: absolute;
   bottom: 0;

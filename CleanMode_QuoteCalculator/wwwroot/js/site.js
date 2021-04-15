@@ -19,6 +19,7 @@ function NextPage(page) {
     var firstCont = document.getElementById("location");
     var secondCont = document.getElementById("units");
     var thirdCont = document.getElementById("unitsTable");
+    var fourthCont = document.getElementById("submit");
 
     switch (page) {
         case 1:
@@ -28,6 +29,27 @@ function NextPage(page) {
         case 2:
             secondCont.setAttribute("hidden", true);
             thirdCont.removeAttribute("hidden");
+            fourthCont.removeAttribute("hidden");
+            break;
+        default:
+            break;
+    }
+}
+function PreviousPage(page) {
+    var submit = document.getElementById("submit");
+    var thirdCont = document.getElementById("unitsTable");
+    var secondCont = document.getElementById("units");
+    var firstCont = document.getElementById("location");
+
+    switch (page) {
+        case 3:
+            submit.setAttribute("hidden", true);
+            thirdCont.setAttribute("hidden", true);
+            secondCont.removeAttribute("hidden");
+            break;
+        case 2:
+            secondCont.setAttribute("hidden", true);
+            firstCont.removeAttribute("hidden");
             break;
         default:
             break;
