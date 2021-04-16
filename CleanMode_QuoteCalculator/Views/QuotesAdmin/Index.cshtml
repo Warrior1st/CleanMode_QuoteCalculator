@@ -15,9 +15,13 @@
             <th>
                 @Html.DisplayNameFor(model => model.Quote1)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Customer)
-            </th>
+            @if ((bool)ViewData["admin"])
+            {
+                <th>
+                    @Html.DisplayNameFor(model => model.Customer)
+                </th>
+            }
+
             <th>
                 @Html.DisplayNameFor(model => model.Customer.FirstName)
             </th>
@@ -31,37 +35,56 @@
                 @Html.DisplayNameFor(model => model.Customer.PhysicalAddress)
             </th>
             <th>
-
+                @Html.DisplayNameFor(model => model.Quote_Summary)
             </th>
+            @if ((bool)ViewData["admin"])
+            {
+                <th>
+
+                </th>
+            }
+
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Quote1)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Customer.CustomerId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Customer.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Customer.LastName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Customer.EmailAddress)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Customer.PhysicalAddress)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.QuoteId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.QuoteId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.QuoteId">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quote1)
+                </td>
+                @if ((bool)ViewData["admin"])
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Customer.CustomerId)
+                    </td>
+                }
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Customer.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Customer.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Customer.EmailAddress)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Customer.PhysicalAddress)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quote_Summary)
+                </td>
+                @if ((bool)ViewData["admin"])
+                {
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.QuoteId">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.QuoteId">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.QuoteId">Delete</a>
+                    </td>
+                }
+
+            </tr>
+        }
     </tbody>
 </table>

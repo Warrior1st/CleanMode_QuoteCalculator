@@ -11,21 +11,57 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace CleanMode_QuoteCalculator.Controllers
 {
-    [Authorize(Roles = "ADMINISTRATOR")]
+    [Authorize(Roles = "ADMINISTRATOR, CUSTOMER")]
     public class QuotesAdminController : Controller
     {
         private readonly CleanModeContext _context;
+        private readonly RoleManager<IdentityRole> roleManager;
+        private readonly UserManager<IdentityUser> userManager;
 
-        public QuotesAdminController(CleanModeContext context)
+        public QuotesAdminController(CleanModeContext context, RoleManager<IdentityRole> roleManager, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            this.roleManager = roleManager;
+            this.userManager = userManager;
         }
 
         // GET: QuotesAdmin
         public async Task<IActionResult> Index()
         {
-            var cleanModeContext = _context.Quotes.Include(q => q.Customer);
-            return View(await cleanModeContext.ToListAsync());
+            bool adminConnected = false;
+
+            var userLoggedIn = await userManager.FindByEmailAsync(Request.Cookies["email"]);
+
+
+            foreach (var role in await userManager.GetRolesAsync(userLoggedIn))
+            {
+
+                if (role == "ADMINISTRATOR")
+                {
+                    adminConnected = true;
+                    break;
+                }
+                else
+                {
+                    adminConnected = false;
+
+                }
+            }
+            if (adminConnected)
+            {
+                var cleanModeContext = _context.Quotes.Include(q => q.Customer);
+                ViewData["admin"] = adminConnected;
+                return View(await cleanModeContext.ToListAsync());
+            }
+            else
+            {
+                ViewData["admin"] = adminConnected;
+                var cleanModeContext = _context.Quotes.Include(q => q.Customer).Where(a => a.Customer.EmailAddress == Request.Cookies["email"]);
+                return View(await cleanModeContext.ToListAsync());
+
+            }
+
+
         }
 
         // GET: QuotesAdmin/Details/5
