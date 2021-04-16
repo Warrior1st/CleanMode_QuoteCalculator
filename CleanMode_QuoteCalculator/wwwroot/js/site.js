@@ -110,7 +110,7 @@ function GenerateTableRows(rows) {
 
         var option3 = document.createElement("option");
         option3.value = "diningroom";
-        option3.text = "Bining Room";
+        option3.text = "Dining Room";
 
         var option4 = document.createElement("option");
         option4.value = "entrance";

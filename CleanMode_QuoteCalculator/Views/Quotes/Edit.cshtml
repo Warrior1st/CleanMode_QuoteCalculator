@@ -20,7 +20,16 @@
     <button class="btn btn-primary" style="margin-left: 2em;">Share Quote</button>
 </div>
 <div class="text-right" style="margin-top: 15%;">
-    Want to save your quote? <a asp-area="Identity" asp-page="/Account/Register">Sign Up Here!</a>
+    @if ((bool)ViewData["login"])
+    {
+        <p></p>
+
+    }
+    else
+    {
+        <p>Want to save your quote ? <a asp-area="Identity" asp-page="/Account/Register"> Sign Up Here!</a></p>
+    }
+
 </div>
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
